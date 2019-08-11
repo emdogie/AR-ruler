@@ -75,6 +75,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let distance = sqrt(pow(a, 2) + pow(b, 2) + pow(c, 2))
         
         print(distance)
+        
+        updateText(text: "\(distance)", position: endDot)
+    }
+    
+    func updateText(text: String, position dot: SCNNode) {
+        
+        let text = SCNText(string: text, extrusionDepth: 1.0)
+        
+        text.firstMaterial?.diffuse.contents = UIColor.red
+        
+        let textNode = SCNNode()
+        
+        textNode.position = SCNVector3(x: dot.position.x, y: dot.position.y + 0.1, z: dot.position.z)
+        
+        textNode.scale = SCNVector3(x: 0.01, y: 0.01, z: 0.01)
+        
+        textNode.geometry = text
+        
+        sceneView.scene.rootNode.addChildNode(textNode)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
